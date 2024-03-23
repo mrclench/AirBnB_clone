@@ -7,7 +7,7 @@ from datetime import datetime
 
 class BaseModel:
     """This is the base model"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializing base class"""
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
@@ -15,9 +15,15 @@ class BaseModel:
         self.name = ""
         self.my_number = 0
 
+        attributes = ['id', 'created_at', 'updated_at', 'name', 'my_number']
+        if kwargs:
+            for key, value in kwargs.items():
+                if key in attributes:
+                    setattr(self, key, value)
+
     def __str__(self):
         """Returns a human-readable, string representation of an object"""
-        return("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
+        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
 
     def save(self):
         """updates the time"""
