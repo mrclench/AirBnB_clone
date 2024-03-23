@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+if __name__ == '__main__':
+    unittest.main()
 from models.base_model import BaseModel
 
 import unittest
@@ -16,5 +18,4 @@ class TestBaseModel(unittest.TestCase):
         expected_str = f"[{my_model.__class__.__name__}] ({my_model.id}) {my_model.__dict__}"
         self.assertEqual(str(my_model), expected_str)
 
-if __name__ == '__main__':
-    unittest.main()
+
