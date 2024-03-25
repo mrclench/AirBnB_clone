@@ -1,30 +1,35 @@
 #!/usr/bin/python3
 import uuid
 from datetime import datetime
+from models import storage
 
 """Creating BaseModel class"""
 
 
 class BaseModel:
-    """This is the base model"""
+    """This is the base model, all classes inherit from"""
     def __init__(self, *args, **kwargs):
-        """Initializing base class"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        self.name = ""
-        self.my_number = 0
-
-        attributes = ['id', 'created_at', 'updated_at', 'name', 'my_number']
-        if kwargs:
-            if 'created_at' in kwargs:
-                obj_dict = self.__dict__.copy()
-                obj_dict['created_at'] = datetime.strptime('2024-03-24T06:43:57.059587', '%Y-%m-%dT%H:%M:%S.%f')
-
-            for key, value in kwargs.items():
-                if key in attributes:
-                    setattr(self, key, value)
-
+        """
+        Initializing base class
+        Args:
+            - *args: list of arguments
+            - **kwargs: dict of key-values arguments
+        """
+        if kwargs is not None and kwargs != {}:
+            for key in kwargs:
+                if key == "created_at":
+                    self.__dict__["created_at"] = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "updated_at":
+                    self.__dict__["updated_at"] = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[key] = kwargs[key]
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
     def __str__(self):
         """Returns a human-readable, string representation of an object"""
         return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
