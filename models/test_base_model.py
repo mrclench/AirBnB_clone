@@ -8,6 +8,12 @@ my_model.name = "My First Model"
 my_model.my_number = 89
 print(my_model)
 my_model.save()
+
+#instance = my_model
+#result = instance.save()
+#print(result)
+
+
 print(my_model)
 my_model_json = my_model.to_dict()
 print(my_model_json)
