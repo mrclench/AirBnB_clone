@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import uuid
 from datetime import datetime
-#from models import storage
+"""from models import storage"""
 
 """Creating BaseModel class"""
 
@@ -29,15 +29,15 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-#            storage.new(self)
+            """storage.new(self)"""
     def __str__(self):
         """Returns a human-readable, string representation of an object"""
-        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """updates the time"""
         self.updated_at = datetime.now()
-#        storage.save()
+        """storage.save()"""
 
     def to_dict(self):
         """Returns dictionary"""
